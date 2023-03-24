@@ -1,0 +1,29 @@
+@import url('reset.css');
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+
+* {
+    font-family: 'Roboto';
+}
+
+tr, td {
+    border: 1px solid black;
+}
+
+td {
+    height: 60px;
+    width: 60px;
+    display: inline-grid;
+    align-content: center;
+    justify-content: center;
+}
+
+td p {
+    font-size: 4em;
+    font-family: 'Roboto';
+    font-weight: bold;
+    padding-bottom: 10px;
+}
