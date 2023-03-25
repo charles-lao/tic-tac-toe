@@ -23,8 +23,13 @@ const displayController = ((board) => {
 
             for (let c = 0; c < 3; c++) {
                 const cell = document.createElement('td');
+                cell.classList.add('boardCells');
+
                 const moveText = document.createElement('p');
 
+                cell.addEventListener('click', (e) => {
+                    alert(cell);
+                });
 
                 moveText.textContent = board[boardIndex];
                 boardIndex++;
