@@ -33,19 +33,19 @@ tr, td {
     border: 1px solid black;
 }
 
-td {
-    height: 100px;
-    width: 100px;
-    display: inline-grid;
-    align-content: center;
-    justify-content: center;
+tr {
+    display: flex;
 }
 
-td p {
-    font-size: 5.5em;
+td {
+    height: 120px;
+    width: 120px;
+    display: inline-grid;
+    align-items: center;
+    justify-content: center;
+    font-size: 5em;
     font-family: 'Roboto';
     font-weight: bold;
-    padding-bottom: 10px;
 }
 
 td:hover {
