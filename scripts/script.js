@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-plusplus */
@@ -68,12 +69,28 @@ const game = (() => {
 
     }
 
+    const _checkAvailableCell = (boardIndex) => {
+
+        if (gameBoard.board[boardIndex] == '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // get gamestate or playerturn from the gameobject or player object
     const placeMove = (e) => {
 
-        const moveType = _checkPlayerTurn();
+        const boardIndex = e.target.dataset.indexNumber;
 
-        gameBoard.board[e.target.dataset.indexNumber] = moveType;
+        
+
+        // check if cell empty before populating it
+        if(_checkAvailableCell(boardIndex) == true) {
+            const moveType = _checkPlayerTurn();
+            gameBoard.board[boardIndex] = moveType;
+        }
+
         displayController.renderBoard();
     };
 
