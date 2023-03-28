@@ -19,7 +19,10 @@ const displayController = ((board) => {
     const _tBody = document.querySelector('.table-body');
     const _statusHeader = document.querySelector('#status-header');
     const _statusText = document.querySelector('#status-text');
-    
+    const _changeNameBtn  = document.querySelector('#change-name-btn');
+    const _formContainer = document.querySelector('.form-container');
+    const _closeBtn = document.querySelector('#close-btn');
+    const _saveBtn = document.querySelector('#save-btn');
 
 
     const renderBoard = () => {
@@ -65,10 +68,29 @@ const displayController = ((board) => {
         _statusText.textContent = 'It\'s a tie! No one won!';
     }
 
-    
+    // displays the form for changing player names
+    _changeNameBtn.addEventListener('click', () => {
+        _formContainer.style.display = 'inline';
+    });
 
+    _closeBtn.addEventListener('click', () => {
+        hideForm();
+    });
+
+    _saveBtn.addEventListener('click', () => {
+        const xName = document.querySelector('#x-name').value;
+        const oName = document.querySelector('#o-name').value;
+
+        game.changePlayerNames(xName, oName);
+    });
+
+    const hideForm = () => {
+        _formContainer.style.display = 'none';
+    };
+
+    
     return {
-        renderBoard, displayRound, displayWinner, displayTie
+        renderBoard, displayRound, displayWinner, displayTie, hideForm
     };
 
 })(gameBoard.board);
@@ -100,6 +122,7 @@ const game = (() => {
         
         displayController.renderBoard();
         displayController.displayRound(1, playerX.name);
+        displayController.hideForm();
    
     }
 
@@ -196,8 +219,23 @@ const game = (() => {
         return moveType;
     }
 
+    const changePlayerNames = (xName, oName) => {
+        if(xName != ''){
+            playerX.name = xName;
+        }
+        if(oName != ''){
+            playerO.name = oName;
+        }
+
+        // restarts the game to apply name changes
+        if(xName != '' || oName != '') {
+            game.start();
+        }
+        
+    }
+
     return {
-        start, placeMove, roundNo, playerX, playerO
+        start, placeMove, roundNo, playerX, playerO, changePlayerNames
     }
 
 })();
