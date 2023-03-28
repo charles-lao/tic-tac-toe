@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-else-return */
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-underscore-dangle */
@@ -93,8 +94,6 @@ const game = (() => {
 
         const boardIndex = e.target.dataset.indexNumber;
 
-        
-
         // check if cell empty before populating it
         if(_checkAvailableCell(boardIndex) == true) {
             const moveType = _checkPlayerTurn();
@@ -103,7 +102,7 @@ const game = (() => {
             // increase current round number
             roundNo++;
 
-
+            
             if(roundNo < 10) {
                 // update status display
                 let playerName;
@@ -115,13 +114,45 @@ const game = (() => {
                 }
                 
                 displayController.displayRound(roundNo, playerName);
-            }
+            } 
             
+            // refresh board display
+            displayController.renderBoard();
+
+            if(roundNo > 5) {
+                if(_checkWinner(moveType)){
+                    alert(`${_checkWinner(moveType)} is this winner!`);
+                }
+            }
         }
 
-        // refresh board display
-        displayController.renderBoard();
+       
+ 
+    };
 
+    const _checkWinner = (moveType) => {
+
+        // shorten variable names
+        const c = gameBoard.board;
+        const m = moveType;
+
+
+        if(
+            (c[0]==m && c[1]==m && c[2]==m) ||
+            (c[3]==m && c[4]==m && c[5]==m) ||
+            (c[6]==m && c[7]==m && c[8]==m) ||
+            (c[0]==m && c[4]==m && c[8]==m) ||
+            (c[2]==m && c[4]==m && c[6]==m)
+        ) {
+            if(m == 'x'){
+                return playerX.name;
+            } else {
+                return playerO.name;
+            }
+        }
+
+
+        
         
     };
 
