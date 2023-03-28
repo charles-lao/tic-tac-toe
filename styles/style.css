@@ -15,7 +15,7 @@ body {
     display: grid;
     align-items: center;
     justify-content: center;
-    grid-template-rows: 85px 600px 40px;
+    grid-template-rows: 55px 600px 40px;
 }
 
 .header {
@@ -25,9 +25,27 @@ body {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 2rem;
     font-weight: bolder;
 }
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px
+}
+
+.status-container {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    gap: 10px;
+}
+
+
 
 tr, td {
     border: 1px solid black;

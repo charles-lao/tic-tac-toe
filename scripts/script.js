@@ -16,6 +16,9 @@ const gameBoard = (() => {
 const displayController = ((board) => {
 
     const _tBody = document.querySelector('.table-body');
+    const _statusHeader = document.querySelector('#status-header');
+    const _statusText = document.querySelector('#status-text');
+
 
     const renderBoard = () => {
         _tBody.textContent = '';
@@ -45,8 +48,13 @@ const displayController = ((board) => {
 
     };
 
+    const displayRound = (roundNo, name) => {
+        _statusHeader.textContent = `Round ${roundNo}`;
+        _statusText.textContent = `${name}'s turn to play!`;
+    }
+
     return {
-        renderBoard
+        renderBoard, displayRound
     };
 
 })(gameBoard.board);
@@ -55,6 +63,7 @@ const displayController = ((board) => {
 const Player = (name, playerType) => ({
         name, playerType
     });
+
 
 const game = (() => {
     
@@ -66,6 +75,7 @@ const game = (() => {
     const start = () => {
         
         displayController.renderBoard();
+        displayController.displayRound(1, playerX.name);
 
     }
 
@@ -89,9 +99,30 @@ const game = (() => {
         if(_checkAvailableCell(boardIndex) == true) {
             const moveType = _checkPlayerTurn();
             gameBoard.board[boardIndex] = moveType;
+            
+            // increase current round number
+            roundNo++;
+
+
+            if(roundNo < 10) {
+                // update status display
+                let playerName;
+
+                if (moveType == 'x'){
+                    playerName = playerO.name;
+                } else {
+                    playerName = playerX.name;
+                }
+                
+                displayController.displayRound(roundNo, playerName);
+            }
+            
         }
 
+        // refresh board display
         displayController.renderBoard();
+
+        
     };
 
     const _checkPlayerTurn = () => {
@@ -100,10 +131,8 @@ const game = (() => {
 
         if( (roundNo % 2) === 0){
             moveType = playerO.playerType;
-            roundNo++;
         } else {
             moveType =  playerX.playerType;
-            roundNo++;
         }
 
         return moveType;
