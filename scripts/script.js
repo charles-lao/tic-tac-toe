@@ -19,6 +19,7 @@ const displayController = ((board) => {
     const _tBody = document.querySelector('.table-body');
     const _statusHeader = document.querySelector('#status-header');
     const _statusText = document.querySelector('#status-text');
+    
 
 
     const renderBoard = () => {
@@ -64,6 +65,8 @@ const displayController = ((board) => {
         _statusText.textContent = 'It\'s a tie! No one won!';
     }
 
+    
+
     return {
         renderBoard, displayRound, displayWinner, displayTie
     };
@@ -85,9 +88,19 @@ const game = (() => {
 
     const start = () => {
         
+        // add restart game function to button
+        const _restartBtn = document.querySelector('#restart-btn');
+        _restartBtn.addEventListener('click', game.start);
+
+        for(let i = 0; i<gameBoard.board.length; i++) {
+            gameBoard.board[i] = '';
+        }
+
+        roundNo = 1;
+        
         displayController.renderBoard();
         displayController.displayRound(1, playerX.name);
-
+   
     }
 
     const _checkAvailableCell = (boardIndex) => {
@@ -98,6 +111,7 @@ const game = (() => {
             return false;
         }
     }
+
 
     // get gamestate or playerturn from the gameobject or player object
     const placeMove = (e) => {
@@ -189,9 +203,6 @@ const game = (() => {
 })();
 
 
-
-
-
-
+// starts the game
 game.start();
 

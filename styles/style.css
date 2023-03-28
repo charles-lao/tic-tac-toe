@@ -70,6 +70,21 @@ td:hover {
     cursor:grab;
 }
 
+.settings-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.settings-container button{
+    font-family: 'Roboto';
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;  
+    font-weight: bold;
+    font-size: 1rem;  
+}
+
 .footer {
     display: grid;
     align-items: center;
