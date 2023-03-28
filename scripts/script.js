@@ -54,8 +54,18 @@ const displayController = ((board) => {
         _statusText.textContent = `${name}'s turn to play!`;
     }
 
+    const displayWinner = (name) => {
+        _statusHeader.textContent = 'GAME OVER!'
+        _statusText.textContent = `${name} wins the game!`;
+    }
+
+    const displayTie = () => {
+        _statusHeader.textContent = 'GAME OVER!'
+        _statusText.textContent = 'It\'s a tie! No one won!';
+    }
+
     return {
-        renderBoard, displayRound
+        renderBoard, displayRound, displayWinner, displayTie
     };
 
 })(gameBoard.board);
@@ -114,14 +124,18 @@ const game = (() => {
                 }
                 
                 displayController.displayRound(roundNo, playerName);
-            } 
+            } else {
+                // tie game
+                displayController.displayTie();
+            }
             
             // refresh board display
             displayController.renderBoard();
 
             if(roundNo > 5) {
                 if(_checkWinner(moveType)){
-                    alert(`${_checkWinner(moveType)} is this winner!`);
+                   const winner = _checkWinner(moveType);
+                   displayController.displayWinner(winner);
                 }
             }
         }
@@ -141,19 +155,18 @@ const game = (() => {
             (c[0]==m && c[1]==m && c[2]==m) ||
             (c[3]==m && c[4]==m && c[5]==m) ||
             (c[6]==m && c[7]==m && c[8]==m) ||
+            (c[0]==m && c[3]==m && c[6]==m) ||
+            (c[1]==m && c[4]==m && c[7]==m) ||
+            (c[2]==m && c[5]==m && c[8]==m) ||
             (c[0]==m && c[4]==m && c[8]==m) ||
             (c[2]==m && c[4]==m && c[6]==m)
         ) {
             if(m == 'x'){
                 return playerX.name;
-            } else {
+            } else if(m == 'o') {
                 return playerO.name;
             }
-        }
-
-
-        
-        
+        }  
     };
 
     const _checkPlayerTurn = () => {
@@ -168,8 +181,6 @@ const game = (() => {
 
         return moveType;
     }
-
-    
 
     return {
         start, placeMove, roundNo, playerX, playerO
